@@ -1,6 +1,5 @@
 package br.edu.ifpb.es.gerenciador.rest.dto;
 
-
 import jakarta.validation.constraints.NotBlank;
 
 public record TarefaRequestDTO (

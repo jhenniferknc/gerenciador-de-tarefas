@@ -1,9 +1,7 @@
-// package br.edu.ifpb.es.gerenciador.service; (ou onde preferir)
 package br.edu.ifpb.es.gerenciador.service;
 
 import org.springframework.stereotype.Service;
 import java.time.Instant;
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
