@@ -14,13 +14,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 @Tag(name = "autenticacao", description = "Autenticação da API")
 public interface AuthRestControllerAPI {
 
     @Operation(summary = "Cadastrar um usuário.", description = "Cadastrar um novo usuário.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso!",
+            @ApiResponse(responseCode = "201", description = "Operação realizada com sucesso!",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDTO.class))),
             @ApiResponse(responseCode = "500", description = "Erro inesperado.",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProblemDetail.class))),
@@ -53,7 +54,9 @@ public interface AuthRestControllerAPI {
                     required = true,
                     in = io.swagger.v3.oas.annotations.enums.ParameterIn.HEADER
             )
-            String authorizationHeader
+            String authorizationHeader,
+            @Parameter(hidden = true)
+            Authentication authentication
     );
 
 }
