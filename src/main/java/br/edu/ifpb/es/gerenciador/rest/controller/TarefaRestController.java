@@ -17,7 +17,7 @@ import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/tarefas")
-public class TarefaRestController {
+public class TarefaRestController implements TarefaRestControllerAPI {
 
     private final TarefaService tarefaService;
 

@@ -22,7 +22,7 @@ import java.time.Instant;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
-public class AuthRestController {
+public class AuthRestController implements AuthRestControllerAPI {
 
     @Autowired
     private AuthenticationManager authenticationManager;
