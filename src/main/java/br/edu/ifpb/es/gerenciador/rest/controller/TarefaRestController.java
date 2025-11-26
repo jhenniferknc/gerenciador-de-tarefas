@@ -53,7 +53,6 @@ public class TarefaRestController {
     public ResponseEntity<TarefaResponseDTO> buscarTarefa(@PathVariable UUID id, @AuthenticationPrincipal Usuario usuarioLogado) {
         TarefaResponseDTO tarefaEncontrada = tarefaService.buscarTarefaPorLookupId(id, usuarioLogado);
         return ResponseEntity.ok(tarefaEncontrada);
-
     }
 
     @DeleteMapping("/{id}/deletar")
