@@ -89,6 +89,6 @@ public interface TarefaRestControllerAPI {
     ResponseEntity<TarefaResponseDTO> deletarTarefa(
             @Parameter(name = "id", description = "ID da tarefa", required = true, in = ParameterIn.PATH) UUID id,
             @Parameter(hidden = true) Usuario usuarioLogado
-    ) throws Throwable;
+    );
 
 }

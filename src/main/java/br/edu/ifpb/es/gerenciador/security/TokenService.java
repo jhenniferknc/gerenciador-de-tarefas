@@ -1,5 +1,6 @@
 package br.edu.ifpb.es.gerenciador.security;
 
+import br.edu.ifpb.es.gerenciador.exception.JwtTokenException;
 import br.edu.ifpb.es.gerenciador.model.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -40,7 +41,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            return ""; //token inválido
+            throw new JwtTokenException("Token inválido ou expirado.");
         }
     }
 
@@ -51,9 +52,9 @@ public class TokenService {
                     .withIssuer("auth-api")
                     .build()
                     .verify(token)
-                    .getExpiresAtAsInstant(); //instante da expiração
+                    .getExpiresAtAsInstant();
         } catch (JWTVerificationException exception) {
-            return null; //token inválido ou expirado
+            throw new JwtTokenException("Erro ao processar token para logout.");
         }
     }
 

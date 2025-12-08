@@ -1,5 +1,6 @@
 package br.edu.ifpb.es.gerenciador.rest.controller;
 
+import br.edu.ifpb.es.gerenciador.exception.JwtTokenException;
 import br.edu.ifpb.es.gerenciador.model.Usuario;
 import br.edu.ifpb.es.gerenciador.rest.dto.LoginRequestDTO;
 import br.edu.ifpb.es.gerenciador.rest.dto.LoginResponseDTO;
@@ -57,14 +58,11 @@ public class AuthRestController implements AuthRestControllerAPI {
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@RequestHeader("Authorization") String authorizationHeader, Authentication authentication) {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            return ResponseEntity.badRequest().build();
+            throw new JwtTokenException("Token invalido");
         }
-        String jwt = authorizationHeader.substring(7);
 
+        String jwt = authorizationHeader.substring(7);
         Instant expiration = tokenService.getExpirationDate(jwt);
-        if (expiration == null) {
-            return ResponseEntity.badRequest().build();
-        }
 
         jwtBlacklistService.blacklistToken(jwt, expiration);
         System.out.println("Usuário " + authentication.getName() + " deslogado.");

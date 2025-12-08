@@ -1,5 +1,6 @@
 package br.edu.ifpb.es.gerenciador.security;
 
+import br.edu.ifpb.es.gerenciador.exception.JwtTokenException;
 import br.edu.ifpb.es.gerenciador.repository.UsuarioRepository;
 import br.edu.ifpb.es.gerenciador.service.JwtBlacklistService;
 import jakarta.servlet.FilterChain;
@@ -38,13 +39,19 @@ public class SecurityFilter extends OncePerRequestFilter {
                 return;
             }
 
-            var login = tokenService.validateToken(token);
-            if (!login.isEmpty()) {
+            try {
+                var login = tokenService.validateToken(token);
+
                 UserDetails user = usuarioRepository.findByEmail(login).orElse(null);
+
                 if (user != null) {
                     var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
+            } catch (JwtTokenException e) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write(e.getMessage());
+                return;
             }
         }
         filterChain.doFilter(request, response);

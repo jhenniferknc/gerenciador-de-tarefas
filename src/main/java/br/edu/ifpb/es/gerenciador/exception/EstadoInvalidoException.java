@@ -1,10 +1,10 @@
 package br.edu.ifpb.es.gerenciador.exception;
 
-public class EstadoInvalidoException extends NaoEncontradoException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-    public EstadoInvalidoException(String message, Throwable cause) {
-        super(message, cause);
-    }
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class EstadoInvalidoException extends RuntimeException {
 
     public EstadoInvalidoException(String message) {
         super(message);

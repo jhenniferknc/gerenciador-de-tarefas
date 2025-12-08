@@ -56,7 +56,7 @@ public class TarefaRestController implements TarefaRestControllerAPI {
     }
 
     @DeleteMapping("/{id}/deletar")
-    public ResponseEntity<TarefaResponseDTO> deletarTarefa(@PathVariable UUID id, @AuthenticationPrincipal Usuario usuarioLogado) throws Throwable {
+    public ResponseEntity<TarefaResponseDTO> deletarTarefa(@PathVariable UUID id, @AuthenticationPrincipal Usuario usuarioLogado) {
         tarefaService.deletarTarefa(id, usuarioLogado);
         return ResponseEntity.noContent().build();
     }

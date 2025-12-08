@@ -1,5 +1,6 @@
 package br.edu.ifpb.es.gerenciador.service;
 
+import br.edu.ifpb.es.gerenciador.exception.EstadoInvalidoException;
 import br.edu.ifpb.es.gerenciador.model.Role;
 import br.edu.ifpb.es.gerenciador.model.Usuario;
 import br.edu.ifpb.es.gerenciador.repository.UsuarioRepository;
@@ -24,7 +25,7 @@ public class UsuarioService {
     @Transactional
     public UsuarioResponseDTO criarUsuario(UsuarioRequestDTO dto) {
         if (usuarioRepository.findByEmail(dto.email()).isPresent()) {
-            throw new RuntimeException("Email já cadastrado.");
+            throw new EstadoInvalidoException("Email já cadastrado.");
         }
 
         Usuario usuario = Usuario.builder()

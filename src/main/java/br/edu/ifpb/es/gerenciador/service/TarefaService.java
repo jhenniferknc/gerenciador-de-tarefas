@@ -31,7 +31,7 @@ public class TarefaService {
     @Transactional
     public TarefaResponseDTO criarTarefa(TarefaRequestDTO dto, UUID usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+                .orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado."));
 
         Tarefa tarefa = Tarefa.builder()
                 .tituloTarefa(dto.titulo())
@@ -93,7 +93,7 @@ public class TarefaService {
     }
 
     @Transactional
-    public TarefaResponseDTO atualizarTarefa(UUID tarefaId, TarefaUpdateRequestDTO dto, Usuario usuarioLogado) throws AutorizacaoNegadaException {
+    public TarefaResponseDTO atualizarTarefa(UUID tarefaId, TarefaUpdateRequestDTO dto, Usuario usuarioLogado) {
         Tarefa tarefa = tarefaRepository.findById(tarefaId)
                 .orElseThrow(() -> new NaoEncontradoException("Tarefa não encontrada."));
 
@@ -146,12 +146,12 @@ public class TarefaService {
     }
 
     @Transactional
-    public void deletarTarefa(UUID lookupId, Usuario usuarioLogado) throws Throwable {
+    public void deletarTarefa(UUID lookupId, Usuario usuarioLogado) {
         Tarefa tarefa = tarefaRepository.findByLookupId(lookupId)
                 .orElseThrow(() -> new NaoEncontradoException("Tarefa não encontrada."));
 
         if (!tarefa.getCriadoPor().getLookupId().equals(usuarioLogado.getLookupId())) {
-            throw new java.lang.Throwable("Você não tem permissão para deletar essa tarefa.");
+            throw new AutorizacaoNegadaException("Você não tem permissão para deletar essa tarefa.");
         }
 
         tarefaRepository.delete(tarefa);
