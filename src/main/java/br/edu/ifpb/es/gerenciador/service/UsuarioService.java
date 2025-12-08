@@ -6,14 +6,8 @@ import br.edu.ifpb.es.gerenciador.repository.UsuarioRepository;
 import br.edu.ifpb.es.gerenciador.rest.dto.UsuarioRequestDTO;
 import br.edu.ifpb.es.gerenciador.rest.dto.UsuarioResponseDTO;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -47,26 +41,6 @@ public class UsuarioService {
                 usuario.getRole(),
                 usuario.getCriadoEm()
         );
-    }
-
-    public List<UsuarioResponseDTO> listarUsuarios() {
-        return usuarioRepository.findAll().stream()
-                .map(u -> new UsuarioResponseDTO(
-                        u.getLookupId(),
-                        u.getNome(),
-                        u.getEmail(),
-                        u.getRole(),
-                        u.getCriadoEm()
-                ))
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public void deletarUsuario(UUID usuarioId) {
-        Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
-
-        usuarioRepository.delete(usuario);
     }
 
 }
