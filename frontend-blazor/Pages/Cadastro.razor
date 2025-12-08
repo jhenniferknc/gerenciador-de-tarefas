@@ -1,0 +1,63 @@
+@page "/cadastro"
+@using front_blazor.Models
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<div class="pagina-cadastro-container">
+    <div class="conteudo">
+        <h1>Cadastro</h1>
+        <form class="form-group-cadastro" @onsubmit="HandleCadastro">
+            
+            <input type="text"
+                   placeholder="Nome"
+                   @bind="usuario.Nome"
+                   required />
+
+            <input type="text"
+                   placeholder="E-mail"
+                   @bind="usuario.Email"
+                   required />
+
+            <input type="password"
+                   placeholder="Senha"
+                   @bind="usuario.Senha"
+                   required />
+
+            <div class="form-options-cadastro">
+                <button type="submit" class="btn-submit-cadastro">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+    private UsuarioCadastro usuario = new();
+
+    private async Task HandleCadastro()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("http://localhost:8082/gerenciador-de-tarefas/api/auth/cadastrar", usuario);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonRetorno = await response.Content.ReadAsStringAsync();
+
+                await JS.InvokeVoidAsync("localStorage.setItem", "usuario", jsonRetorno);
+                await JS.InvokeVoidAsync("alert", "Usuário cadastrado com sucesso!");
+                Navigation.NavigateTo("/login");
+            }
+            else
+            {
+                Console.WriteLine($"Erro: {response.StatusCode}");
+                await JS.InvokeVoidAsync("alert", "Erro ao cadastrar usuário (API recusou).");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao cadastrar: {ex.Message}");
+            await JS.InvokeVoidAsync("alert", "Erro ao conectar com o servidor.");
+        }
+    }
+}

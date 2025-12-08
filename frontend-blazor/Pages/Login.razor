@@ -1,0 +1,71 @@
+@page "/login"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@using System.Text.Json
+
+<div class="pagina-login-container">
+    <div class="conteudo">
+        <h1>Login</h1>
+
+        <form class="form-group" @onsubmit="HandleLogin">
+            <input type="text"
+                   placeholder="E-mail"
+                   @bind="email"
+                   required />
+
+            <input type="password"
+                   placeholder="Senha"
+                   @bind="senha"
+                   required />
+
+            <div class="form-options">
+                <a href="#">Esqueceu a senha?</a>
+                <button type="submit" class="btn-submit">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+    private string email = "";
+    private string senha = "";
+
+    private async Task HandleLogin()
+    {
+        try
+        {
+            var loginDto = new { email = email, senha = senha };
+
+            var response = await Http.PostAsJsonAsync("http://localhost:8082/gerenciador-de-tarefas/api/auth/login", loginDto);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var dados = await response.Content.ReadFromJsonAsync<JsonElement>();
+                if (dados.TryGetProperty("token", out var tokenProp))
+                {
+                    var token = tokenProp.GetString();
+                    await JS.InvokeVoidAsync("localStorage.setItem", "token", token);
+                }
+
+                if (dados.TryGetProperty("usuario", out var usuarioProp))
+                {
+                    var usuarioJson = usuarioProp.GetRawText(); 
+                    await JS.InvokeVoidAsync("localStorage.setItem", "usuario", usuarioJson);
+                }
+
+                Navigation.NavigateTo("/nova-tarefa");
+            }
+            else
+            {
+                Console.WriteLine($"Erro: {response.StatusCode}");
+                await JS.InvokeVoidAsync("alert", "Email ou senha inválidos.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro no login: {ex.Message}");
+            await JS.InvokeVoidAsync("alert", "Erro ao conectar com o servidor.");
+        }
+    }
+}

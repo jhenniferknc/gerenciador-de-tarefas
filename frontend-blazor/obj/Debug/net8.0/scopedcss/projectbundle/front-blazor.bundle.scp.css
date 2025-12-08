@@ -1,0 +1,414 @@
+/* /Pages/Cadastro.razor.rz.scp.css */
+@keyframes fadeIn-b-wfldrkdg2q {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.pagina-cadastro-container[b-wfldrkdg2q] {
+    background: linear-gradient(135deg, #201e96, #5a49ee, #ab168d);
+    display: flex;
+    height: 100vh;
+    animation: fadeIn-b-wfldrkdg2q 1.5s ease forwards;
+    opacity: 0;
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+}
+
+.conteudo[b-wfldrkdg2q] {
+    width: 100%;
+    max-width: 500px; 
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.conteudo h1[b-wfldrkdg2q] {
+    background: white;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.form-group-cadastro[b-wfldrkdg2q] {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group-cadastro input[b-wfldrkdg2q] {
+    padding: 12px 10px;
+    border: none;
+    border-radius: 20px;
+    border-bottom: 2px solid #ccc;
+    background-color: #f9f9ff;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group-cadastro input:focus[b-wfldrkdg2q] {
+    border-bottom: 2px solid #5b00d2;
+}
+
+.form-options-cadastro[b-wfldrkdg2q] {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-submit-cadastro[b-wfldrkdg2q] {
+    padding: 10px 40px;
+    background: linear-gradient(120deg, #ab168d, #9e2cc7, #201e96);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.btn-submit-cadastro:hover[b-wfldrkdg2q] {
+    transform: scale(1.05);
+    background-color: #7a00ff;
+    box-shadow: 0 6px 16px rgba(162, 89, 255, 0.6)
+}
+/* /Pages/Inicial.razor.rz.scp.css */
+.pagina-inicial-container[b-x33ria1kpw] {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #201e96, #5a49ee, #ab168d);
+    min-height: 100vh;
+    color: white;
+    animation: fadeIn-b-x33ria1kpw 1.5s ease forwards;
+    opacity: 0;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;    
+    padding: 2rem 4rem;
+    text-align: center;
+    width: 100%;
+}
+
+@keyframes fadeIn-b-x33ria1kpw {
+  to {
+    opacity: 1;
+  }
+}
+
+.botoes .btn[b-x33ria1kpw] {
+    padding: 0.75rem 2rem;
+    margin-right: 1rem;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(120deg, #ab168d, #9e2cc7, #201e96);
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(162, 89, 255, 0.5);
+}
+
+.botoes .btn:hover[b-x33ria1kpw] {
+    transform: scale(1.05);
+    background-color: #7a00ff;
+    box-shadow: 0 6px 16px rgba(162, 89, 255, 0.6);
+}
+/* /Pages/Login.razor.rz.scp.css */
+@keyframes fadeIn-b-jws6xk04g1 {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.pagina-login-container[b-jws6xk04g1] {
+    background: linear-gradient(135deg, #201e96, #5a49ee, #ab168d);
+    display: flex;
+    height: 100vh;
+    animation: fadeIn-b-jws6xk04g1 1.5s ease forwards;
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.conteudo[b-jws6xk04g1] {
+    width: 100%;
+    max-width: 500px;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; 
+}
+
+.conteudo h1[b-jws6xk04g1] {
+    background: white;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.form-group[b-jws6xk04g1] {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group input[b-jws6xk04g1] {
+    padding: 12px 10px;
+    border: none;
+    border-radius: 20px;
+    border-bottom: 2px solid #ccc;
+    background-color: #f9f9ff;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus[b-jws6xk04g1] {
+    border-bottom: 2px solid #5b00d2;
+}
+
+.form-options[b-jws6xk04g1] {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.form-options a[b-jws6xk04g1] {
+    background: white;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-submit[b-jws6xk04g1] {
+    padding: 10px 40px;
+    background: linear-gradient(120deg, #ab168d, #9e2cc7, #201e96);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.btn-submit:hover[b-jws6xk04g1] {
+    transform: scale(1.05);
+    background-color: #7a00ff;
+    box-shadow: 0 6px 16px rgba(162, 89, 255, 0.6)
+}
+/* /Pages/NovaTarefa.razor.rz.scp.css */
+.container-inicial[b-2bq0jbl8tj] {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9fafb;
+}
+
+.container-titulo-novaTarefa[b-2bq0jbl8tj] {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 800px;
+}
+
+.container-titulo-novaTarefa h1[b-2bq0jbl8tj] {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgb(183, 22, 232);
+    margin: 0 0 0.5rem 0;
+}
+
+.container-titulo-novaTarefa p[b-2bq0jbl8tj] {
+    font-size: 1.125rem;
+    color: #6B7280;
+}
+
+.input-novaTarefa[b-2bq0jbl8tj] {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.5rem;
+    width: 100%;
+    max-width: 800px;
+    gap: 0.5rem;
+}
+
+.input-novaTarefa input[b-2bq0jbl8tj] {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0.75rem;
+    background-color: transparent;
+    min-width: 150px;
+}
+
+.input-novaTarefa button[b-2bq0jbl8tj] {
+    background: linear-gradient(to right, #8e44ad, #9b59b6);
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.input-novaTarefa button:hover[b-2bq0jbl8tj] {
+    opacity: 0.9;
+}
+
+.tarefas-container[b-2bq0jbl8tj] {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.tarefa-item[b-2bq0jbl8tj] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    gap: 15px;
+}
+
+.tarefa-item:last-child[b-2bq0jbl8tj] {
+    border-bottom: none;
+}
+
+.tarefa-checkbox[b-2bq0jbl8tj] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+}
+
+.tarefa-checkbox input[type="checkbox"][b-2bq0jbl8tj] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #8e44ad;
+    margin: 0;
+}
+
+.tarefa-conteudo[b-2bq0jbl8tj] {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.edit-input-titulo[b-2bq0jbl8tj], .edit-input-descricao[b-2bq0jbl8tj] {
+    width: 100%; 
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.tarefa-titulo[b-2bq0jbl8tj] {
+    font-weight: 500;
+    color: #333;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+.tarefa-descricao[b-2bq0jbl8tj] {
+    font-size: 0.9rem;
+    color: #6B7280;
+    word-break: break-word;
+}
+
+.sem-tarefas[b-2bq0jbl8tj] {
+    text-align: center;
+    padding: 50px 0;
+    color: #6B7280;
+}
+
+.sem-tarefas .tarefa-icon[b-2bq0jbl8tj] {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: #ced4da;
+}
+
+.sem-tarefas h3[b-2bq0jbl8tj] {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0 0 0.5rem 0;
+    color: #681085;
+}
+
+.sem-tarefas p[b-2bq0jbl8tj] {
+    font-size: 1rem;
+    color: #8e44ad;
+}
+
+.tarefa-item.concluida .tarefa-titulo[b-2bq0jbl8tj],
+.tarefa-item.concluida .tarefa-descricao[b-2bq0jbl8tj] {
+    text-decoration: line-through;
+    color: #9CA3AF;
+}
+
+.tarefa-acoes[b-2bq0jbl8tj] {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.tarefa-acao-btn[b-2bq0jbl8tj] {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+    color: #681085;
+}
+
+.tarefa-acao-btn:hover[b-2bq0jbl8tj] {
+    background-color: #eee;
+}

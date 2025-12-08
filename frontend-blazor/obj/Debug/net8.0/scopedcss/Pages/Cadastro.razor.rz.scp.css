@@ -1,0 +1,86 @@
+@keyframes fadeIn-b-wfldrkdg2q {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.pagina-cadastro-container[b-wfldrkdg2q] {
+    background: linear-gradient(135deg, #201e96, #5a49ee, #ab168d);
+    display: flex;
+    height: 100vh;
+    animation: fadeIn-b-wfldrkdg2q 1.5s ease forwards;
+    opacity: 0;
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+}
+
+.conteudo[b-wfldrkdg2q] {
+    width: 100%;
+    max-width: 500px; 
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.conteudo h1[b-wfldrkdg2q] {
+    background: white;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.form-group-cadastro[b-wfldrkdg2q] {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group-cadastro input[b-wfldrkdg2q] {
+    padding: 12px 10px;
+    border: none;
+    border-radius: 20px;
+    border-bottom: 2px solid #ccc;
+    background-color: #f9f9ff;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group-cadastro input:focus[b-wfldrkdg2q] {
+    border-bottom: 2px solid #5b00d2;
+}
+
+.form-options-cadastro[b-wfldrkdg2q] {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-submit-cadastro[b-wfldrkdg2q] {
+    padding: 10px 40px;
+    background: linear-gradient(120deg, #ab168d, #9e2cc7, #201e96);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.btn-submit-cadastro:hover[b-wfldrkdg2q] {
+    transform: scale(1.05);
+    background-color: #7a00ff;
+    box-shadow: 0 6px 16px rgba(162, 89, 255, 0.6)
+}

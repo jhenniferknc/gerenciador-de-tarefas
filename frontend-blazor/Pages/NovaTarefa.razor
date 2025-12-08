@@ -1,0 +1,261 @@
+@page "/nova-tarefa"
+@using System.Net.Http.Headers
+@using System.Text.Json
+@inject HttpClient Http
+@inject IJSRuntime JS
+
+<div class="container-inicial">
+    <div class="container-titulo-novaTarefa">
+        <h1>Gerenciador de tarefas</h1>
+        <p>Organize suas tarefas de forma simples e eficiente</p>
+    </div>
+
+    <div class="input-novaTarefa">
+        <input type="text" placeholder="Título da tarefa" @bind="tituloTarefa" />
+        <input type="text" placeholder="Descrição da tarefa" @bind="descricao" />
+        <button @onclick="AdicionarTarefa">
+            <i class="fa-solid fa-plus" style="margin-right: 8px;"></i>
+            Adicionar
+        </button>
+    </div>
+
+    @if (!string.IsNullOrEmpty(erro))
+    {
+        <p style="color: red">@erro</p>
+    }
+
+    <div class="tarefas-container">
+        @if (tarefas != null && tarefas.Any())
+        {
+            @foreach (var t in tarefas)
+            {
+                <div class="tarefa-item @(t.ConcluidoEm != null ? "concluida" : "")">
+                    <div class="tarefa-checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   checked="@(t.ConcluidoEm != null)"
+                                   @onchange="() => MarcarComoConcluida(t.LookupId)" />
+                        </label>
+                    </div>
+                    <div class="tarefa-conteudo">
+                        @if (editandoId == t.LookupId)
+                        {
+                            <input type="text"
+                                   @bind="editado.Titulo"
+                                   placeholder="Título"
+                                   class="edit-input-titulo" />
+                            <input type="text"
+                                   @bind="editado.Descricao"
+                                   placeholder="Descrição"
+                                   class="edit-input-descricao" />
+                        }
+                        else
+                        {
+                            <span class="tarefa-titulo">@t.Titulo</span>
+                            <span class="tarefa-descricao">@t.Descricao</span>
+                        }
+                    </div>
+                    <div class="tarefa-acoes">
+                        @if (editandoId == t.LookupId)
+                        {
+                            <button class="tarefa-acao-btn editar" @onclick="() => HandleSalvarTarefa(t.LookupId)">Salvar</button>
+                        }
+                        else
+                        {
+                            <button class="tarefa-acao-btn editar" @onclick="() => HandleEditarTarefa(t)">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="tarefa-acao-btn excluir" @onclick="() => HandleExcluirTarefa(t.LookupId)">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="sem-tarefas">
+                <i class="fa-solid fa-file-pen tarefa-icon"></i>
+                <h3>Nenhuma tarefa ainda</h3>
+                <p>Comece adicionando sua primeira tarefa acima</p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private string tituloTarefa = "";
+    private string descricao = "";
+    private List<Tarefa> tarefas = new();
+    private string erro = "";
+    private string? editandoId = null;
+    private Tarefa editado = new();
+    private const string ApiBaseUrl = "http://localhost:8082/gerenciador-de-tarefas/api/tarefas";
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarTarefas();
+    }
+    private async Task<string> GetToken()
+    {
+        return await JS.InvokeAsync<string>("localStorage.getItem", "token");
+    }
+
+    private async Task CarregarTarefas()
+    {
+        try
+        {
+            var token = await GetToken();
+            var request = new HttpRequestMessage(HttpMethod.Get, ApiBaseUrl);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.SendAsync(request);
+            if (!response.IsSuccessStatusCode) throw new Exception($"Erro {response.StatusCode}");
+
+            var data = await response.Content.ReadFromJsonAsync<JsonElement>();
+
+            if (data.ValueKind == JsonValueKind.Array)
+            {
+                tarefas = data.Deserialize<List<Tarefa>>() ?? new List<Tarefa>();
+            }
+            else if (data.TryGetProperty("tarefas", out var tarefasProp))
+            {
+                tarefas = tarefasProp.Deserialize<List<Tarefa>>() ?? new List<Tarefa>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar tarefas: {ex.Message}");
+            erro = "Não foi possível carregar as tarefas.";
+        }
+    }
+
+    private async Task AdicionarTarefa()
+    {
+        if (string.IsNullOrWhiteSpace(tituloTarefa) || string.IsNullOrWhiteSpace(descricao)) return;
+
+        try
+        {
+            var token = await GetToken();
+            if (string.IsNullOrEmpty(token))
+            {
+                erro = "Você precisa estar logado para adicionar uma tarefa";
+                return;
+            }
+
+            var novaTarefaDto = new { titulo = tituloTarefa, descricao = descricao };
+            var request = new HttpRequestMessage(HttpMethod.Post, ApiBaseUrl);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            request.Content = JsonContent.Create(novaTarefaDto);
+
+            var response = await Http.SendAsync(request);
+            if (!response.IsSuccessStatusCode) throw new Exception($"Erro {response.StatusCode}");
+
+            var novaTarefa = await response.Content.ReadFromJsonAsync<Tarefa>();
+            if (novaTarefa != null)
+            {
+                tarefas.Add(novaTarefa);
+                tituloTarefa = "";
+                descricao = "";
+                erro = "";
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao adicionar: {ex.Message}");
+            erro = "Não foi possível adicionar a tarefa.";
+        }
+    }
+
+    private async Task MarcarComoConcluida(string id)
+    {
+        try
+        {
+            var token = await GetToken();
+            var request = new HttpRequestMessage(HttpMethod.Patch, $"{ApiBaseUrl}/{id}/concluir");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.SendAsync(request);
+            if (!response.IsSuccessStatusCode) throw new Exception($"Erro {response.StatusCode}");
+
+            var tarefaAtualizada = await response.Content.ReadFromJsonAsync<Tarefa>();
+            
+            var index = tarefas.FindIndex(t => t.LookupId == id);
+            if (index != -1 && tarefaAtualizada != null)
+            {
+                tarefas[index] = tarefaAtualizada;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao concluir: {ex.Message}");
+            erro = "Não foi possível concluir a tarefa.";
+        }
+    }
+
+    private void HandleEditarTarefa(Tarefa tarefa)
+    {
+        editandoId = tarefa.LookupId;
+        editado = new Tarefa 
+        { 
+            Titulo = tarefa.Titulo, 
+            Descricao = tarefa.Descricao, 
+            LookupId = tarefa.LookupId 
+        };
+    }
+
+    private async Task HandleSalvarTarefa(string id)
+    {
+        try
+        {
+            var token = await GetToken();
+            var dadosAtualizados = new { titulo = editado.Titulo, descricao = editado.Descricao };
+            
+            var request = new HttpRequestMessage(HttpMethod.Put, $"{ApiBaseUrl}/{id}/editar");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            request.Content = JsonContent.Create(dadosAtualizados);
+
+            var response = await Http.SendAsync(request);
+            if (!response.IsSuccessStatusCode) throw new Exception($"Erro {response.StatusCode}");
+
+            var tarefaAtualizada = await response.Content.ReadFromJsonAsync<Tarefa>();
+
+            var index = tarefas.FindIndex(t => t.LookupId == id);
+            if (index != -1 && tarefaAtualizada != null)
+            {
+                tarefas[index] = tarefaAtualizada;
+            }
+            editandoId = null;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao editar: {ex.Message}");
+            erro = $"Não é possível editar a tarefa. Detalhes: {ex.Message}";
+        }
+    }
+
+    private async Task HandleExcluirTarefa(string id)
+    {
+        bool confirmado = await JS.InvokeAsync<bool>("confirm", "Tem certeza que deseja excluir a tarefa?");
+        
+        if (confirmado)
+        {
+            try
+            {
+                var token = await GetToken();
+                var request = new HttpRequestMessage(HttpMethod.Delete, $"{ApiBaseUrl}/{id}/deletar");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var response = await Http.SendAsync(request);
+                if (!response.IsSuccessStatusCode) throw new Exception($"Erro {response.StatusCode}");
+
+                tarefas.RemoveAll(t => t.LookupId == id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao excluir: {ex.Message}");
+                erro = $"Não foi possível excluir a tarefa. {ex.Message}";
+            }
+        }
+    }
+}
