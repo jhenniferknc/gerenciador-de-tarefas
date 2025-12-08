@@ -75,8 +75,12 @@ public class TarefaService {
 
         if (!tarefa.feito()) {
             tarefa.setConcluidoEm(LocalDateTime.now());
-            tarefaRepository.save(tarefa);
+        } else {
+            tarefa.setConcluidoEm(null);
         }
+
+        tarefaRepository.save(tarefa);
+
         return new TarefaResponseDTO(
                 tarefa.getLookupId(),
                 tarefa.getTituloTarefa(),

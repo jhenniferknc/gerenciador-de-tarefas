@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthRestController implements AuthRestControllerAPI {
