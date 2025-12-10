@@ -1,6 +1,6 @@
 # Gerenciador de Tarefas
 
-Bem vindo(a)! Este repositório contém um sistema backend para gerenciamento de tarefas, que está sendo desenvolvido na disciplina Desenvolvimento de Aplicações WEB III.  
+Este diretório contém um sistema backend para gerenciamento de tarefas.  
 
 ## Visão geral
 
