@@ -1,0 +1,67 @@
+<div class="container-inicial">
+    <div class="container-titulo-novaTarefa">
+        <h1>Gerenciador de tarefas</h1>
+        <p>Organize suas tarefas de forma simples e eficiente</p>
+    </div>
+
+    <div class="input-novaTarefa">
+        <input type="text" placeholder="Título da tarefa" [(ngModel)]="tituloTarefa" />
+        <input type="text" placeholder="Descrição da tarefa" [(ngModel)]="descricao" />
+        
+        <button (click)="adicionarTarefa()">
+            <fa-icon [icon]="faPlus" style="margin-right: 8px;"></fa-icon>
+            Adicionar
+        </button>
+    </div>
+
+    <p *ngIf="erro" style="color: red">{{ erro }}</p>
+
+    <div class="tarefas-container">
+        <ng-container *ngIf="tarefas.length > 0; else semTarefasTemplate">
+            <div *ngFor="let t of tarefas" class="tarefa-item" [class.concluida]="t.concluidoEm">
+                
+                <div class="tarefa-checkbox">
+                    <label>
+                        <input type="checkbox" [checked]="t.concluidoEm !== null" (change)="marcarComoConcluida(t)"/>
+                    </label>
+                </div>
+
+                <div class="tarefa-conteudo">
+                    <div *ngIf="editandoId === t.lookupId; else modoVisualizacao">
+                        <input type="text" [(ngModel)]="editado.titulo" placeholder="Título" class="edit-input-titulo"/>
+                        <input type="text" [(ngModel)]="editado.descricao" placeholder="Descrição" class="edit-input-descricao"/>
+                    </div>
+                    <ng-template #modoVisualizacao>
+                        <span class="tarefa-titulo">{{ t.titulo }}</span>
+                        <span class="tarefa-descricao">{{ t.descricao }}</span>
+                    </ng-template>
+                </div>
+
+                <div class="tarefa-acoes">
+                    <div *ngIf="editandoId === t.lookupId; else botoesPadrao">
+                        <button class="tarefa-acao-btn editar" (click)="salvarEdicao(t.lookupId)">💾</button>
+                        <button class="tarefa-acao-btn excluir" (click)="cancelarEdicao()">❌</button>
+                    </div>
+
+                    <ng-template #botoesPadrao>
+                        <button class="tarefa-acao-btn editar" (click)="iniciarEdicao(t)">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>
+                        
+                        <button class="tarefa-acao-btn excluir" (click)="excluirTarefa(t.lookupId)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-template #semTarefasTemplate>
+            <div class="sem-tarefas">
+                <fa-icon [icon]="faFilePen" class="tarefa-icon"></fa-icon>
+                <h3>Nenhuma tarefa ainda</h3>
+                <p>Comece adicionando sua primeira tarefa acima</p>
+            </div>
+        </ng-template>
+    </div>
+</div>

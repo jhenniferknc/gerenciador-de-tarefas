@@ -1,0 +1,38 @@
+<div class="pagina-cadastro-container">
+    <div class="conteudo">
+        <h1>Cadastro</h1>
+        
+        <form class="form-group-cadastro" (ngSubmit)="fazerCadastro()">
+            <input 
+                type="text"
+                placeholder="Nome"
+                name="nome"
+                [(ngModel)]="nome"
+                autocomplete="name"
+                required 
+            />
+            <input
+                type="email" 
+                placeholder="E-mail"
+                name="email"
+                [(ngModel)]="email"
+                autocomplete="email"
+                required
+            />
+            <input
+                type="password"
+                placeholder="Senha"
+                name="senha"
+                [(ngModel)]="senha"
+                autocomplete="new-password"
+                required
+            />
+
+            <div class="form-options-cadastro">
+                <button type="submit" class="btn-submit-cadastro">
+                    Cadastrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
