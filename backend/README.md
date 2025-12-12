@@ -31,25 +31,6 @@ gerenciador-de-tarefas/
           GerenciadorApplication.java
 ```
 
-## Como executar / compilar
-
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/jhenniferknc/gerenciador-de-tarefas.git
-   ```
-
-2. Acesse a pasta do projeto:
-  ```bash
-  cd gerenciador-de-tarefas
-  ```
-
-3. Compile com Maven:
-   ```bash
-   mvn clean install
-   ```
-
-Execute a aplicação.
-
 ## Funcionalidades atuais
 
 - Estrutura base de backend em Java
@@ -59,7 +40,3 @@ Execute a aplicação.
 - Persistência de dados
 - Autenticação/autorização de usuários
 - Documentação da API
-
----
-
-🖤 **Obrigada por visitar este repositório!**
