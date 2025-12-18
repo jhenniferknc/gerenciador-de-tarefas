@@ -1,0 +1,27 @@
+<div class="pagina-login-container">
+    <div class="conteudo">
+        <h1>Login</h1>
+        <form class="form-group" (ngSubmit)="fazerLogin()">
+            <input
+                type="text"
+                placeholder="E-mail"
+                name="email" 
+                [(ngModel)]="email"
+                autocomplete="email"
+                required
+            />
+            <input
+                type="password"
+                placeholder="Senha"
+                name="senha"
+                [(ngModel)]="senha"
+                autocomplete="senha"
+                required
+            />
+            <div class="form-options">
+                <a href="#">Esqueceu a senha?</a>
+                <button type="submit" class="btn-submit">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
