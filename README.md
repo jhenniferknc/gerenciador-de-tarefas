@@ -101,6 +101,9 @@ cd frontend-angular
 npm install
 npm start
 ```
+## Observação
+
+As credenciais e configurações de banco de dados disponibilizadas neste repositório são destinadas **exclusivamente para testes locais e fins acadêmicos**.
 
 ---
 
